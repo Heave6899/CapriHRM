@@ -1,0 +1,370 @@
+﻿@model List<ViewModel.MenubarModel>
+@using Service;
+@using Utility.Costant;
+@{
+    GetUserPermission getUserPermission = new GetUserPermission();
+    var EmployeeDashbord = getUserPermission.CheckActionController("EmployeeDashbord", "Home", Model);
+    var HRDashbord = getUserPermission.CheckActionController("HRDashbord", "Home", Model);
+    var AdminDashbord = getUserPermission.CheckActionController("AdminDashbord", "Home", Model);
+    var UserProfile = getUserPermission.CheckActionController("UserProfile", "Home", Model);
+    var ListEmployee = getUserPermission.CheckActionController("ListEmployee", "Home", Model);
+    var AddEmployee = getUserPermission.CheckActionController("Employee", "Home", Model);
+    var ListManageUser = getUserPermission.CheckActionController("ListManageUser", "User", Model);
+    var CreateUser = getUserPermission.CheckActionController("CreateUser", "User", Model);
+    var RolePermission = getUserPermission.CheckActionController("RolePermission", "Master", Model);
+    var Role = getUserPermission.CheckActionController("Role", "Master", Model);
+    var Permission = getUserPermission.CheckActionController("Permission", "Master", Model);
+    var ApplicationPermission = getUserPermission.CheckActionController("ApplicationPermission", "Master", Model);
+    var LeaveType = getUserPermission.CheckActionController("LeaveType", "Leave", Model);
+    var LeaveBalance = getUserPermission.CheckActionController("LeaveBalance", "Leave", Model);
+    var ApplyLeave = getUserPermission.CheckActionController("EmployeeLeave", "Leave", Model);
+    var MyLeave = getUserPermission.CheckActionController("MyLeave", "Leave", Model);
+    var ListLeaevApproval = getUserPermission.CheckActionController("ListLeaveApproval", "Leave", Model);
+    var ListLeaveBalance = getUserPermission.CheckActionController("ListLeaveBalance", "Leave", Model);
+    var Holyday = getUserPermission.CheckActionController("Holyday", "Leave", Model);
+    var HolidayList = getUserPermission.CheckActionController("HolidayList", "Leave", Model);
+    var HolidayListForUser = getUserPermission.CheckActionController("HolidayListForUser", "Leave", Model);
+}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    @if (Convert.ToInt32(Session["RoleId"]) == Constant.AdminRoleId)
+    {
+        <a href="@Url.Action("AdminDashbord","Home")" class="brand-link">
+            <img src="~/dist/img/Final-loght.png" alt="CapriHRM Logo" class="brand-image  elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">CapriHRM</span>
+        </a>
+    }
+    else if (Convert.ToInt32(Session["RoleId"]) == Constant.HRRoleId)
+    {
+        <a href="@Url.Action("HRDashbord","Home")" class="brand-link">
+            <img src="~/dist/img/Final-loght.png" alt="CapriHRM Logo" class="brand-image  elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">CapriHRM</span>
+        </a>
+    }
+    else if (Convert.ToInt32(Session["RoleId"]) == Constant.EmployeeRoleId)
+    {
+        <a href="@Url.Action("EmployeeDashbord","Home")" class="brand-link">
+            <img src="~/dist/img/Final-loght.png" alt="CapriHRM Logo" class="brand-image  elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">CapriHRM</span>
+        </a>
+    }
+
+    <!-- Sidebar -->
+    <div class="sidebar" style="width:auto">
+        <!-- Sidebar user panel (optional) -->
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+
+                @if (AdminDashbord)
+                {
+                    <li class="nav-item has-treeview menu">
+                        <a href="@Url.Action("AdminDashbord", "Home")" class="nav-link ">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashbord
+                                @*<i class="right fas fa-angle-left"></i>*@
+                            </p>
+                        </a>
+
+                    </li>
+                }
+                @if (HRDashbord)
+                {
+                    <li class="nav-item has-treeview menu">
+                        <a href="@Url.Action("HRDashbord", "Home")" class="nav-link ">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashbord
+                                @*<i class="right fas fa-angle-left"></i>*@
+                            </p>
+                        </a>
+
+                    </li>
+                }
+                @if (EmployeeDashbord)
+                {
+                    <li class="nav-item has-treeview menu">
+                        <a href="@Url.Action("EmployeeDashbord", "Home")" class="nav-link ">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashbord
+
+                            </p>
+                        </a>
+
+                    </li>
+                }
+
+                @if (UserProfile)
+                {
+                    <li class="nav-item has-treeview menu">
+                        <a href="@Url.Action("UserProfile", "User")" class="nav-link ">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                My Info
+                                @*<i class="right fas fa-angle-left"></i>*@
+                            </p>
+                        </a>
+
+                    </li>
+                }
+                @if (ListEmployee || AddEmployee)
+                {
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Employee
+                                <i class="fas fa-angle-right right"></i>
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+                            @if (ListEmployee)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ListEmployee", "Home")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Employee</p>
+                                    </a>
+                                </li>
+                            }
+                            @if (AddEmployee)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Employee", "Home", new { id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Employee</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (CreateUser || ListManageUser || RolePermission)
+                {
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-circle"></i>
+                            <p>
+                                User Managment
+                                <i class="fas fa-angle-right right"></i>
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (ListManageUser)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ListManageUser","User")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage User</p>
+                                    </a>
+                                </li>
+                            }
+                            @if (CreateUser)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("CreateUser", "User", new { id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create User</p>
+                                    </a>
+                                </li>
+                            }
+                            @if (RolePermission)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("RolePermission", "Master", new { @id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Role Permission</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (Role || Permission || ApplicationPermission || LeaveType)
+                {
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-tag"></i>
+                            <p>Master<i class="fas fa-angle-right right"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Role)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Role", "Master", new { @id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Role</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (Permission)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Permission", "Master", new { @id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Permission</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (ApplicationPermission)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ApplicationPermission", "Master", new { @id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Application Permission</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (LeaveType)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("LeaveType", "Leave", new { id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add LeaveType</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (LeaveBalance || ApplyLeave || MyLeave || ListLeaevApproval || ListLeaveBalance || Holyday || HolidayListForUser)
+                {
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Leave Managment
+                                <i class="fas fa-angle-right right"></i>
+
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (LeaveBalance)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("LeaveBalance", "Leave", new { id = 0 })" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Leave Balance</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (ListLeaveBalance)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ListLeaveBalance", "Leave")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Leave Balance </p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (ApplyLeave)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("EmployeeLeave", "Leave")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Apply Leave </p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (MyLeave)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("MyLeave", "Leave")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>My Leave </p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (ListLeaevApproval)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ListLeaveApproval", "Leave")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Manage Leave Approval </p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+
+
+
+                    </li>
+                }
+                @if (Holyday || HolidayListForUser)
+                {
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Holiday
+                                <i class="fas fa-angle-right right"></i>
+
+                            </p>
+                        </a>
+
+                        <ul class="nav nav-treeview">
+                            @if (Holyday)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Holyday", "Leave")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Holiday </p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (HolidayList)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("HolidayList", "Leave")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Holiday List </p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (HolidayListForUser)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Action("HolidayListForUser", "Leave")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Holiday List </p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+
+                    </li>
+                }
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

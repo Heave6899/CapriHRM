@@ -1,0 +1,162 @@
+﻿@model ViewModel.UnapproveLeaveModel
+@{
+    ViewBag.Title = "ListLeaveApproval";
+}
+@using Utility.Costant
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+}
+@foreach (var item in Model.employeeUnapproveLeaveModels)
+{
+    if (item.ApprovalStatus == null)
+    {
+        item.ApprovalStatus = "Not Approve";
+    }
+    else if (item.ApprovalStatus == "true")
+    {
+        item.ApprovalStatus = "Approve";
+    }
+
+}
+<!-- Content Header (Page header) -->
+<br />
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <!-- /.card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Leave Requests</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="LeaveRequest" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>Employee</th>
+                                <th>Leave Type</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>No of Leaves</th>
+                                <th>Comment</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int NoLeave = 0;}
+                            @foreach (var item in Model.employeeUnapproveLeaveModels)
+                            {
+                                <tr>
+                                    <td>@(NoLeave = NoLeave + 1)</td>
+                                    <td>@item.EmployeeName</td>
+                                    <td>@item.LeaveTypeName</td>
+                                    <td>@item.FromDate</td>
+                                    <td>@item.ToDate</td>
+                                    <td>@item.NoOfLeave</td>
+                                    <td>@item.Comment</td>
+                                    <td>
+                                        @Html.ActionLink("Approval", "LeaveApproval", "Leave", new { @id = Constant.Encode(item.id.ToString()) }, new { }) &nbsp;|
+                                        @Html.ActionLink("Not Approve", "LeaveNotApproval", "Leave", new { @id = Constant.Encode(item.id.ToString()) }, new { })
+                                    </td>
+                                </tr>}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content --><br />
+<!-- /.content --><br />
+<!-- /.content --><br />
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <!-- /.card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Cancle Leave Requests</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="CancleLeave" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>Employee</th>
+                                <th>Leave Type</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>No of Leaves</th>
+                                <th>Comment</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int NoCancleLeave = 0;}
+                            @foreach (var item in Model.employeeUnapproveCancleLeaveModels)
+                            {
+                                <tr>
+                                    <td>@(NoCancleLeave= NoCancleLeave+1)</td>
+                                    <td>@item.EmployeeName</td>
+                                    <td>@item.LeaveTypeName</td>
+                                    <td>@item.FromDate</td>
+                                    <td>@item.ToDate</td>
+                                    <td>@item.NoOfLeave</td>
+                                    <td>@item.Comment</td>
+                                    <td>
+                                        @Html.ActionLink("Approval", "CancleLeaveApproval", "Leave", new { @id = Constant.Encode(item.id.ToString()) }, new { }) &nbsp;|
+                                        @Html.ActionLink("Not Approve", "CancleLeaveNotApproval", "Leave", new { @id = Constant.Encode(item.id.ToString()) }, new { })
+                                    </td>
+                                </tr>}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+@section scripts{
+
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#LeaveRequest').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+            $('#CancleLeave').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });</script>
+
+}
+

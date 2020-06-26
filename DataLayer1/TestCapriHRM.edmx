@@ -1,0 +1,1348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CapriHRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApplicationPermission">
+          <Key>
+            <PropertyRef Name="ApplicationPermissionId" />
+          </Key>
+          <Property Name="ApplicationPermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControllerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermissionId" Type="int" />
+        </EntityType>
+        <EntityType Name="CancleLeave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employeeLeaveId" Type="int" />
+          <Property Name="fromdate" Type="datetime" />
+          <Property Name="todate" Type="datetime" />
+          <Property Name="HalfDay" Type="bit" />
+          <Property Name="Shift" Type="int" />
+          <Property Name="comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="noOfLeave" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="approveStatus" Type="bit" />
+          <Property Name="createby" Type="int" />
+          <Property Name="createdate" Type="datetime" />
+          <Property Name="approveby" Type="int" />
+          <Property Name="approvedate" Type="datetime" />
+          <Property Name="year" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CityMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateID" Type="int" />
+        </EntityType>
+        <EntityType Name="CountryMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryCode" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FristName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nationality" Type="int" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="PanCardNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="ServerImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EmployeeContact">
+          <Key>
+            <PropertyRef Name="EmployeeContactId" />
+          </Key>
+          <Property Name="EmployeeContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" />
+          <Property Name="BloodGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="City" Type="int" />
+        </EntityType>
+        <EntityType Name="EmployeeLeave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="LeaveTypeId" Type="int" />
+          <Property Name="FromDate" Type="datetime" />
+          <Property Name="ToDate" Type="datetime" />
+          <Property Name="HalfDay" Type="bit" />
+          <Property Name="Shift" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ApproveBy" Type="int" />
+          <Property Name="ApprovalDate" Type="datetime" />
+          <Property Name="NoOfLeave" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="ApprovalStatus" Type="bit" />
+          <Property Name="year" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="HolidayList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="year" Type="nvarchar" MaxLength="50" />
+          <Property Name="HolydayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="FromDate" Type="datetime" />
+          <Property Name="ToDate" Type="datetime" />
+          <Property Name="NoOfDays" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LeaveBalance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="LeaveTypeId" Type="int" />
+          <Property Name="LeavesBalance" Type="decimal" Precision="18" Scale="1" />
+          <Property Name="LeaveBy" Type="tinyint" />
+          <Property Name="EmployeeLeaveId" Type="int" />
+          <Property Name="CancleLeaveId" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LeaveType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeaveTypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="PermissionMaster">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PermissionName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="RolePermissionId" />
+          </Key>
+          <Property Name="RolePermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="ApplicationPermissionId" Type="int" />
+          <Property Name="IsPermission" Type="bit" />
+        </EntityType>
+        <EntityType Name="StateMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryID" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WeekendDay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Day" Type="nvarchar" MaxLength="50" />
+          <Property Name="DayOfMonth" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateBy" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_ApplicationPermission_PermissionMaster1">
+          <End Role="PermissionMaster" Type="Self.PermissionMaster" Multiplicity="0..1" />
+          <End Role="ApplicationPermission" Type="Self.ApplicationPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionMaster">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="ApplicationPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CancleLeave_EmployeeLeave">
+          <End Role="EmployeeLeave" Type="Self.EmployeeLeave" Multiplicity="0..1" />
+          <End Role="CancleLeave" Type="Self.CancleLeave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeLeave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CancleLeave">
+              <PropertyRef Name="employeeLeaveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CityMaster_StateMaster">
+          <End Role="StateMaster" Type="Self.StateMaster" Multiplicity="0..1" />
+          <End Role="CityMaster" Type="Self.CityMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CityMaster">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_CountryMaster">
+          <End Role="CountryMaster" Type="Self.CountryMaster" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Nationality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_CityMaster">
+          <End Role="CityMaster" Type="Self.CityMaster" Multiplicity="0..1" />
+          <End Role="EmployeeContact" Type="Self.EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_CountryMaster">
+          <End Role="CountryMaster" Type="Self.CountryMaster" Multiplicity="0..1" />
+          <End Role="EmployeeContact" Type="Self.EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="EmployeeContact" Type="Self.EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_StateMaster">
+          <End Role="StateMaster" Type="Self.StateMaster" Multiplicity="0..1" />
+          <End Role="EmployeeContact" Type="Self.EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeLeave_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="EmployeeLeave" Type="Self.EmployeeLeave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeLeave">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeLeave_LeaveType">
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="0..1" />
+          <End Role="EmployeeLeave" Type="Self.EmployeeLeave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeLeave">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_CancleLeave">
+          <End Role="CancleLeave" Type="Self.CancleLeave" Multiplicity="0..1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CancleLeave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="CancleLeaveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_EmployeeLeave">
+          <End Role="EmployeeLeave" Type="Self.EmployeeLeave" Multiplicity="0..1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeLeave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="EmployeeLeaveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_LeaveType">
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="0..1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_ApplicationPermission">
+          <End Role="ApplicationPermission" Type="Self.ApplicationPermission" Multiplicity="0..1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationPermission">
+              <PropertyRef Name="ApplicationPermissionId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="ApplicationPermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StateMaster_CountryMaster">
+          <End Role="CountryMaster" Type="Self.CountryMaster" Multiplicity="0..1" />
+          <End Role="StateMaster" Type="Self.StateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StateMaster">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CapriHRMModelStoreContainer">
+          <EntitySet Name="ApplicationPermission" EntityType="Self.ApplicationPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CancleLeave" EntityType="Self.CancleLeave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityMaster" EntityType="Self.CityMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CountryMaster" EntityType="Self.CountryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeContact" EntityType="Self.EmployeeContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeLeave" EntityType="Self.EmployeeLeave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HolidayList" EntityType="Self.HolidayList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PermissionMaster" EntityType="Self.PermissionMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StateMaster" EntityType="Self.StateMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeekendDay" EntityType="Self.WeekendDay" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ApplicationPermission_PermissionMaster1" Association="Self.FK_ApplicationPermission_PermissionMaster1">
+            <End Role="PermissionMaster" EntitySet="PermissionMaster" />
+            <End Role="ApplicationPermission" EntitySet="ApplicationPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CancleLeave_EmployeeLeave" Association="Self.FK_CancleLeave_EmployeeLeave">
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeave" />
+            <End Role="CancleLeave" EntitySet="CancleLeave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CityMaster_StateMaster" Association="Self.FK_CityMaster_StateMaster">
+            <End Role="StateMaster" EntitySet="StateMaster" />
+            <End Role="CityMaster" EntitySet="CityMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_CountryMaster" Association="Self.FK_Employee_CountryMaster">
+            <End Role="CountryMaster" EntitySet="CountryMaster" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_CityMaster" Association="Self.FK_EmployeeContact_CityMaster">
+            <End Role="CityMaster" EntitySet="CityMaster" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_CountryMaster" Association="Self.FK_EmployeeContact_CountryMaster">
+            <End Role="CountryMaster" EntitySet="CountryMaster" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_Employee" Association="Self.FK_EmployeeContact_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_StateMaster" Association="Self.FK_EmployeeContact_StateMaster">
+            <End Role="StateMaster" EntitySet="StateMaster" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeLeave_Employee" Association="Self.FK_EmployeeLeave_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeLeave_LeaveType" Association="Self.FK_EmployeeLeave_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveType" />
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_CancleLeave" Association="Self.FK_LeaveBalance_CancleLeave">
+            <End Role="CancleLeave" EntitySet="CancleLeave" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_Employee" Association="Self.FK_LeaveBalance_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_EmployeeLeave" Association="Self.FK_LeaveBalance_EmployeeLeave">
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeave" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_LeaveType" Association="Self.FK_LeaveBalance_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveType" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_ApplicationPermission" Association="Self.FK_RolePermission_ApplicationPermission">
+            <End Role="ApplicationPermission" EntitySet="ApplicationPermission" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StateMaster_CountryMaster" Association="Self.FK_StateMaster_CountryMaster">
+            <End Role="CountryMaster" EntitySet="CountryMaster" />
+            <End Role="StateMaster" EntitySet="StateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CapriHRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CapriHRMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApplicationPermissions" EntityType="CapriHRMModel.ApplicationPermission" />
+          <EntitySet Name="CancleLeaves" EntityType="CapriHRMModel.CancleLeave" />
+          <EntitySet Name="CityMasters" EntityType="CapriHRMModel.CityMaster" />
+          <EntitySet Name="CountryMasters" EntityType="CapriHRMModel.CountryMaster" />
+          <EntitySet Name="Employees" EntityType="CapriHRMModel.Employee" />
+          <EntitySet Name="EmployeeContacts" EntityType="CapriHRMModel.EmployeeContact" />
+          <EntitySet Name="EmployeeLeaves" EntityType="CapriHRMModel.EmployeeLeave" />
+          <EntitySet Name="HolidayLists" EntityType="CapriHRMModel.HolidayList" />
+          <EntitySet Name="LeaveBalances" EntityType="CapriHRMModel.LeaveBalance" />
+          <EntitySet Name="LeaveTypes" EntityType="CapriHRMModel.LeaveType" />
+          <EntitySet Name="PermissionMasters" EntityType="CapriHRMModel.PermissionMaster" />
+          <EntitySet Name="Roles" EntityType="CapriHRMModel.Role" />
+          <EntitySet Name="RolePermissions" EntityType="CapriHRMModel.RolePermission" />
+          <EntitySet Name="StateMasters" EntityType="CapriHRMModel.StateMaster" />
+          <EntitySet Name="Users" EntityType="CapriHRMModel.User" />
+          <EntitySet Name="WeekendDays" EntityType="CapriHRMModel.WeekendDay" />
+          <AssociationSet Name="FK_ApplicationPermission_PermissionMaster1" Association="CapriHRMModel.FK_ApplicationPermission_PermissionMaster1">
+            <End Role="PermissionMaster" EntitySet="PermissionMasters" />
+            <End Role="ApplicationPermission" EntitySet="ApplicationPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_ApplicationPermission" Association="CapriHRMModel.FK_RolePermission_ApplicationPermission">
+            <End Role="ApplicationPermission" EntitySet="ApplicationPermissions" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CancleLeave_EmployeeLeave" Association="CapriHRMModel.FK_CancleLeave_EmployeeLeave">
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeaves" />
+            <End Role="CancleLeave" EntitySet="CancleLeaves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_CancleLeave" Association="CapriHRMModel.FK_LeaveBalance_CancleLeave">
+            <End Role="CancleLeave" EntitySet="CancleLeaves" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CityMaster_StateMaster" Association="CapriHRMModel.FK_CityMaster_StateMaster">
+            <End Role="StateMaster" EntitySet="StateMasters" />
+            <End Role="CityMaster" EntitySet="CityMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_CityMaster" Association="CapriHRMModel.FK_EmployeeContact_CityMaster">
+            <End Role="CityMaster" EntitySet="CityMasters" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_CountryMaster" Association="CapriHRMModel.FK_Employee_CountryMaster">
+            <End Role="CountryMaster" EntitySet="CountryMasters" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_CountryMaster" Association="CapriHRMModel.FK_EmployeeContact_CountryMaster">
+            <End Role="CountryMaster" EntitySet="CountryMasters" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StateMaster_CountryMaster" Association="CapriHRMModel.FK_StateMaster_CountryMaster">
+            <End Role="CountryMaster" EntitySet="CountryMasters" />
+            <End Role="StateMaster" EntitySet="StateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_Employee" Association="CapriHRMModel.FK_EmployeeContact_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeLeave_Employee" Association="CapriHRMModel.FK_EmployeeLeave_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeaves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_Employee" Association="CapriHRMModel.FK_LeaveBalance_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Employee" Association="CapriHRMModel.FK_User_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeContact_StateMaster" Association="CapriHRMModel.FK_EmployeeContact_StateMaster">
+            <End Role="StateMaster" EntitySet="StateMasters" />
+            <End Role="EmployeeContact" EntitySet="EmployeeContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeLeave_LeaveType" Association="CapriHRMModel.FK_EmployeeLeave_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeaves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_EmployeeLeave" Association="CapriHRMModel.FK_LeaveBalance_EmployeeLeave">
+            <End Role="EmployeeLeave" EntitySet="EmployeeLeaves" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveBalance_LeaveType" Association="CapriHRMModel.FK_LeaveBalance_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="CapriHRMModel.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="CapriHRMModel.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ApplicationPermission">
+          <Key>
+            <PropertyRef Name="ApplicationPermissionId" />
+          </Key>
+          <Property Name="ApplicationPermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermissionId" Type="Int32" />
+          <NavigationProperty Name="PermissionMaster" Relationship="CapriHRMModel.FK_ApplicationPermission_PermissionMaster1" FromRole="ApplicationPermission" ToRole="PermissionMaster" />
+          <NavigationProperty Name="RolePermissions" Relationship="CapriHRMModel.FK_RolePermission_ApplicationPermission" FromRole="ApplicationPermission" ToRole="RolePermission" />
+        </EntityType>
+        <EntityType Name="CancleLeave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employeeLeaveId" Type="Int32" />
+          <Property Name="fromdate" Type="DateTime" Precision="3" />
+          <Property Name="todate" Type="DateTime" Precision="3" />
+          <Property Name="HalfDay" Type="Boolean" />
+          <Property Name="Shift" Type="Int32" />
+          <Property Name="comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="noOfLeave" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="approveStatus" Type="Boolean" />
+          <Property Name="createby" Type="Int32" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+          <Property Name="approveby" Type="Int32" />
+          <Property Name="approvedate" Type="DateTime" Precision="3" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeeLeave" Relationship="CapriHRMModel.FK_CancleLeave_EmployeeLeave" FromRole="CancleLeave" ToRole="EmployeeLeave" />
+          <NavigationProperty Name="LeaveBalances" Relationship="CapriHRMModel.FK_LeaveBalance_CancleLeave" FromRole="CancleLeave" ToRole="LeaveBalance" />
+        </EntityType>
+        <EntityType Name="CityMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateID" Type="Int32" />
+          <NavigationProperty Name="StateMaster" Relationship="CapriHRMModel.FK_CityMaster_StateMaster" FromRole="CityMaster" ToRole="StateMaster" />
+          <NavigationProperty Name="EmployeeContacts" Relationship="CapriHRMModel.FK_EmployeeContact_CityMaster" FromRole="CityMaster" ToRole="EmployeeContact" />
+        </EntityType>
+        <EntityType Name="CountryMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="CapriHRMModel.FK_Employee_CountryMaster" FromRole="CountryMaster" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeContacts" Relationship="CapriHRMModel.FK_EmployeeContact_CountryMaster" FromRole="CountryMaster" ToRole="EmployeeContact" />
+          <NavigationProperty Name="StateMasters" Relationship="CapriHRMModel.FK_StateMaster_CountryMaster" FromRole="CountryMaster" ToRole="StateMaster" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FristName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="Int32" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
+          <Property Name="PanCardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="ServerImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CountryMaster" Relationship="CapriHRMModel.FK_Employee_CountryMaster" FromRole="Employee" ToRole="CountryMaster" />
+          <NavigationProperty Name="EmployeeContacts" Relationship="CapriHRMModel.FK_EmployeeContact_Employee" FromRole="Employee" ToRole="EmployeeContact" />
+          <NavigationProperty Name="EmployeeLeaves" Relationship="CapriHRMModel.FK_EmployeeLeave_Employee" FromRole="Employee" ToRole="EmployeeLeave" />
+          <NavigationProperty Name="LeaveBalances" Relationship="CapriHRMModel.FK_LeaveBalance_Employee" FromRole="Employee" ToRole="LeaveBalance" />
+          <NavigationProperty Name="Users" Relationship="CapriHRMModel.FK_User_Employee" FromRole="Employee" ToRole="User" />
+        </EntityType>
+        <EntityType Name="EmployeeContact">
+          <Key>
+            <PropertyRef Name="EmployeeContactId" />
+          </Key>
+          <Property Name="EmployeeContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="City" Type="Int32" />
+          <NavigationProperty Name="CityMaster" Relationship="CapriHRMModel.FK_EmployeeContact_CityMaster" FromRole="EmployeeContact" ToRole="CityMaster" />
+          <NavigationProperty Name="CountryMaster" Relationship="CapriHRMModel.FK_EmployeeContact_CountryMaster" FromRole="EmployeeContact" ToRole="CountryMaster" />
+          <NavigationProperty Name="Employee" Relationship="CapriHRMModel.FK_EmployeeContact_Employee" FromRole="EmployeeContact" ToRole="Employee" />
+          <NavigationProperty Name="StateMaster" Relationship="CapriHRMModel.FK_EmployeeContact_StateMaster" FromRole="EmployeeContact" ToRole="StateMaster" />
+        </EntityType>
+        <EntityType Name="EmployeeLeave">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="LeaveTypeId" Type="Int32" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <Property Name="HalfDay" Type="Boolean" />
+          <Property Name="Shift" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ApproveBy" Type="Int32" />
+          <Property Name="ApprovalDate" Type="DateTime" Precision="3" />
+          <Property Name="NoOfLeave" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="ApprovalStatus" Type="Boolean" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CancleLeaves" Relationship="CapriHRMModel.FK_CancleLeave_EmployeeLeave" FromRole="EmployeeLeave" ToRole="CancleLeave" />
+          <NavigationProperty Name="Employee" Relationship="CapriHRMModel.FK_EmployeeLeave_Employee" FromRole="EmployeeLeave" ToRole="Employee" />
+          <NavigationProperty Name="LeaveType" Relationship="CapriHRMModel.FK_EmployeeLeave_LeaveType" FromRole="EmployeeLeave" ToRole="LeaveType" />
+          <NavigationProperty Name="LeaveBalances" Relationship="CapriHRMModel.FK_LeaveBalance_EmployeeLeave" FromRole="EmployeeLeave" ToRole="LeaveBalance" />
+        </EntityType>
+        <EntityType Name="HolidayList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HolydayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <Property Name="NoOfDays" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="LeaveBalance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="LeaveTypeId" Type="Int32" />
+          <Property Name="LeavesBalance" Type="Decimal" Precision="18" Scale="1" />
+          <Property Name="LeaveBy" Type="Byte" />
+          <Property Name="EmployeeLeaveId" Type="Int32" />
+          <Property Name="CancleLeaveId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CancleLeave" Relationship="CapriHRMModel.FK_LeaveBalance_CancleLeave" FromRole="LeaveBalance" ToRole="CancleLeave" />
+          <NavigationProperty Name="Employee" Relationship="CapriHRMModel.FK_LeaveBalance_Employee" FromRole="LeaveBalance" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeLeave" Relationship="CapriHRMModel.FK_LeaveBalance_EmployeeLeave" FromRole="LeaveBalance" ToRole="EmployeeLeave" />
+          <NavigationProperty Name="LeaveType" Relationship="CapriHRMModel.FK_LeaveBalance_LeaveType" FromRole="LeaveBalance" ToRole="LeaveType" />
+        </EntityType>
+        <EntityType Name="LeaveType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeaveTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="EmployeeLeaves" Relationship="CapriHRMModel.FK_EmployeeLeave_LeaveType" FromRole="LeaveType" ToRole="EmployeeLeave" />
+          <NavigationProperty Name="LeaveBalances" Relationship="CapriHRMModel.FK_LeaveBalance_LeaveType" FromRole="LeaveType" ToRole="LeaveBalance" />
+        </EntityType>
+        <EntityType Name="PermissionMaster">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PermissionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplicationPermissions" Relationship="CapriHRMModel.FK_ApplicationPermission_PermissionMaster1" FromRole="PermissionMaster" ToRole="ApplicationPermission" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RolePermissions" Relationship="CapriHRMModel.FK_RolePermission_Role" FromRole="Role" ToRole="RolePermission" />
+          <NavigationProperty Name="Users" Relationship="CapriHRMModel.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="RolePermissionId" />
+          </Key>
+          <Property Name="RolePermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="ApplicationPermissionId" Type="Int32" />
+          <Property Name="IsPermission" Type="Boolean" />
+          <NavigationProperty Name="ApplicationPermission" Relationship="CapriHRMModel.FK_RolePermission_ApplicationPermission" FromRole="RolePermission" ToRole="ApplicationPermission" />
+          <NavigationProperty Name="Role" Relationship="CapriHRMModel.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="StateMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryID" Type="Int32" />
+          <NavigationProperty Name="CityMasters" Relationship="CapriHRMModel.FK_CityMaster_StateMaster" FromRole="StateMaster" ToRole="CityMaster" />
+          <NavigationProperty Name="CountryMaster" Relationship="CapriHRMModel.FK_StateMaster_CountryMaster" FromRole="StateMaster" ToRole="CountryMaster" />
+          <NavigationProperty Name="EmployeeContacts" Relationship="CapriHRMModel.FK_EmployeeContact_StateMaster" FromRole="StateMaster" ToRole="EmployeeContact" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="CapriHRMModel.FK_User_Employee" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="Role" Relationship="CapriHRMModel.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="WeekendDay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DayOfMonth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_ApplicationPermission_PermissionMaster1">
+          <End Type="CapriHRMModel.PermissionMaster" Role="PermissionMaster" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.ApplicationPermission" Role="ApplicationPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionMaster">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="ApplicationPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_ApplicationPermission">
+          <End Type="CapriHRMModel.ApplicationPermission" Role="ApplicationPermission" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.RolePermission" Role="RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationPermission">
+              <PropertyRef Name="ApplicationPermissionId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="ApplicationPermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CancleLeave_EmployeeLeave">
+          <End Type="CapriHRMModel.EmployeeLeave" Role="EmployeeLeave" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.CancleLeave" Role="CancleLeave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeLeave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CancleLeave">
+              <PropertyRef Name="employeeLeaveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_CancleLeave">
+          <End Type="CapriHRMModel.CancleLeave" Role="CancleLeave" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.LeaveBalance" Role="LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CancleLeave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="CancleLeaveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CityMaster_StateMaster">
+          <End Type="CapriHRMModel.StateMaster" Role="StateMaster" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.CityMaster" Role="CityMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CityMaster">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_CityMaster">
+          <End Type="CapriHRMModel.CityMaster" Role="CityMaster" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.EmployeeContact" Role="EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_CountryMaster">
+          <End Type="CapriHRMModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Nationality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_CountryMaster">
+          <End Type="CapriHRMModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.EmployeeContact" Role="EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StateMaster_CountryMaster">
+          <End Type="CapriHRMModel.CountryMaster" Role="CountryMaster" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.StateMaster" Role="StateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CountryMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StateMaster">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_Employee">
+          <End Type="CapriHRMModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.EmployeeContact" Role="EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeLeave_Employee">
+          <End Type="CapriHRMModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.EmployeeLeave" Role="EmployeeLeave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EmployeeLeave">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_Employee">
+          <End Type="CapriHRMModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.LeaveBalance" Role="LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Employee">
+          <End Type="CapriHRMModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeContact_StateMaster">
+          <End Type="CapriHRMModel.StateMaster" Role="StateMaster" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.EmployeeContact" Role="EmployeeContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmployeeContact">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeLeave_LeaveType">
+          <End Type="CapriHRMModel.LeaveType" Role="LeaveType" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.EmployeeLeave" Role="EmployeeLeave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeLeave">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_EmployeeLeave">
+          <End Type="CapriHRMModel.EmployeeLeave" Role="EmployeeLeave" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.LeaveBalance" Role="LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeLeave">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="EmployeeLeaveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveBalance_LeaveType">
+          <End Type="CapriHRMModel.LeaveType" Role="LeaveType" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.LeaveBalance" Role="LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Type="CapriHRMModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.RolePermission" Role="RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Type="CapriHRMModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="CapriHRMModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CapriHRMModelStoreContainer" CdmEntityContainer="CapriHRMEntities">
+          <EntitySetMapping Name="ApplicationPermissions">
+            <EntityTypeMapping TypeName="CapriHRMModel.ApplicationPermission">
+              <MappingFragment StoreEntitySet="ApplicationPermission">
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="ApplicationPermissionId" ColumnName="ApplicationPermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CancleLeaves">
+            <EntityTypeMapping TypeName="CapriHRMModel.CancleLeave">
+              <MappingFragment StoreEntitySet="CancleLeave">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="approvedate" ColumnName="approvedate" />
+                <ScalarProperty Name="approveby" ColumnName="approveby" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="createby" ColumnName="createby" />
+                <ScalarProperty Name="approveStatus" ColumnName="approveStatus" />
+                <ScalarProperty Name="noOfLeave" ColumnName="noOfLeave" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="HalfDay" ColumnName="HalfDay" />
+                <ScalarProperty Name="todate" ColumnName="todate" />
+                <ScalarProperty Name="fromdate" ColumnName="fromdate" />
+                <ScalarProperty Name="employeeLeaveId" ColumnName="employeeLeaveId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityMasters">
+            <EntityTypeMapping TypeName="CapriHRMModel.CityMaster">
+              <MappingFragment StoreEntitySet="CityMaster">
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountryMasters">
+            <EntityTypeMapping TypeName="CapriHRMModel.CountryMaster">
+              <MappingFragment StoreEntitySet="CountryMaster">
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="CapriHRMModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ServerImagePath" ColumnName="ServerImagePath" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="PanCardNo" ColumnName="PanCardNo" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FristName" ColumnName="FristName" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeContacts">
+            <EntityTypeMapping TypeName="CapriHRMModel.EmployeeContact">
+              <MappingFragment StoreEntitySet="EmployeeContact">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeContactId" ColumnName="EmployeeContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeLeaves">
+            <EntityTypeMapping TypeName="CapriHRMModel.EmployeeLeave">
+              <MappingFragment StoreEntitySet="EmployeeLeave">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+                <ScalarProperty Name="NoOfLeave" ColumnName="NoOfLeave" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="ApproveBy" ColumnName="ApproveBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="HalfDay" ColumnName="HalfDay" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HolidayLists">
+            <EntityTypeMapping TypeName="CapriHRMModel.HolidayList">
+              <MappingFragment StoreEntitySet="HolidayList">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="NoOfDays" ColumnName="NoOfDays" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HolydayName" ColumnName="HolydayName" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveBalances">
+            <EntityTypeMapping TypeName="CapriHRMModel.LeaveBalance">
+              <MappingFragment StoreEntitySet="LeaveBalance">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CancleLeaveId" ColumnName="CancleLeaveId" />
+                <ScalarProperty Name="EmployeeLeaveId" ColumnName="EmployeeLeaveId" />
+                <ScalarProperty Name="LeaveBy" ColumnName="LeaveBy" />
+                <ScalarProperty Name="LeavesBalance" ColumnName="LeavesBalance" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveTypes">
+            <EntityTypeMapping TypeName="CapriHRMModel.LeaveType">
+              <MappingFragment StoreEntitySet="LeaveType">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LeaveTypeName" ColumnName="LeaveTypeName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionMasters">
+            <EntityTypeMapping TypeName="CapriHRMModel.PermissionMaster">
+              <MappingFragment StoreEntitySet="PermissionMaster">
+                <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CapriHRMModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolePermissions">
+            <EntityTypeMapping TypeName="CapriHRMModel.RolePermission">
+              <MappingFragment StoreEntitySet="RolePermission">
+                <ScalarProperty Name="IsPermission" ColumnName="IsPermission" />
+                <ScalarProperty Name="ApplicationPermissionId" ColumnName="ApplicationPermissionId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RolePermissionId" ColumnName="RolePermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StateMasters">
+            <EntityTypeMapping TypeName="CapriHRMModel.StateMaster">
+              <MappingFragment StoreEntitySet="StateMaster">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CapriHRMModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeekendDays">
+            <EntityTypeMapping TypeName="CapriHRMModel.WeekendDay">
+              <MappingFragment StoreEntitySet="WeekendDay">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

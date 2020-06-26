@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c02d13a3c14749a4a5ff2ece9d728a70" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="CapriHRMModel.ApplicationPermission" Width="1.5" PointX="6" PointY="19.125" />
+        <EntityTypeShape EntityType="CapriHRMModel.CancleLeave" Width="1.5" PointX="7.5" PointY="2.25" />
+        <EntityTypeShape EntityType="CapriHRMModel.CityMaster" Width="1.5" PointX="5.25" PointY="5.875" />
+        <EntityTypeShape EntityType="CapriHRMModel.CountryMaster" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CapriHRMModel.Employee" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="CapriHRMModel.EmployeeContact" Width="1.5" PointX="7.5" PointY="8" />
+        <EntityTypeShape EntityType="CapriHRMModel.EmployeeLeave" Width="1.5" PointX="5.25" PointY="8.875" />
+        <EntityTypeShape EntityType="CapriHRMModel.HolidayList" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CapriHRMModel.LeaveBalance" Width="1.5" PointX="9.75" PointY="5.875" />
+        <EntityTypeShape EntityType="CapriHRMModel.LeaveType" Width="1.5" PointX="3" PointY="14.875" />
+        <EntityTypeShape EntityType="CapriHRMModel.PermissionMaster" Width="1.5" PointX="3.75" PointY="19.5" />
+        <EntityTypeShape EntityType="CapriHRMModel.Role" Width="1.5" PointX="6" PointY="14.375" />
+        <EntityTypeShape EntityType="CapriHRMModel.RolePermission" Width="1.5" PointX="8.25" PointY="17.125" />
+        <EntityTypeShape EntityType="CapriHRMModel.StateMaster" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="CapriHRMModel.User" Width="1.5" PointX="8.25" PointY="12.5" />
+        <EntityTypeShape EntityType="CapriHRMModel.WeekendDay" Width="1.5" PointX="2.75" PointY="0.75" />
+        <AssociationConnector Association="CapriHRMModel.FK_ApplicationPermission_PermissionMaster1" />
+        <AssociationConnector Association="CapriHRMModel.FK_RolePermission_ApplicationPermission" />
+        <AssociationConnector Association="CapriHRMModel.FK_CancleLeave_EmployeeLeave" />
+        <AssociationConnector Association="CapriHRMModel.FK_LeaveBalance_CancleLeave" />
+        <AssociationConnector Association="CapriHRMModel.FK_CityMaster_StateMaster" />
+        <AssociationConnector Association="CapriHRMModel.FK_EmployeeContact_CityMaster" />
+        <AssociationConnector Association="CapriHRMModel.FK_Employee_CountryMaster" />
+        <AssociationConnector Association="CapriHRMModel.FK_EmployeeContact_CountryMaster" />
+        <AssociationConnector Association="CapriHRMModel.FK_StateMaster_CountryMaster" />
+        <AssociationConnector Association="CapriHRMModel.FK_EmployeeContact_Employee" />
+        <AssociationConnector Association="CapriHRMModel.FK_EmployeeLeave_Employee" />
+        <AssociationConnector Association="CapriHRMModel.FK_LeaveBalance_Employee" />
+        <AssociationConnector Association="CapriHRMModel.FK_User_Employee" />
+        <AssociationConnector Association="CapriHRMModel.FK_EmployeeContact_StateMaster" />
+        <AssociationConnector Association="CapriHRMModel.FK_EmployeeLeave_LeaveType" />
+        <AssociationConnector Association="CapriHRMModel.FK_LeaveBalance_EmployeeLeave" />
+        <AssociationConnector Association="CapriHRMModel.FK_LeaveBalance_LeaveType" />
+        <AssociationConnector Association="CapriHRMModel.FK_RolePermission_Role" />
+        <AssociationConnector Association="CapriHRMModel.FK_User_Role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

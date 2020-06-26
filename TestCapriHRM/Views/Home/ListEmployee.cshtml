@@ -1,0 +1,85 @@
+﻿@model IEnumerable<ViewModel.EmployeeModel>
+@{
+    ViewBag.Title = "List";
+}
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+}
+<!-- Content Header (Page header) -->
+<br />
+<!-- Main content -->
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <!-- /.card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Employees&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                    <div class="row"><div class="col-md-6 offset-6"><input type="button" value="Add" class="btn btn-default btn-block" onclick="location.href='@Url.Action("Employee", "Home", new { @id = 0 })'" /></div></div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="EmpList" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>Name</th>
+                                <th>Birthdate</th>
+                                <th>Nationality</th>
+                                <th>PancardNo</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int No = 0;}
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(No = No + 1)</td>
+                                    <td>@item.FristName @item.LastName</td>
+                                    <td>@item.BirthDate</td>
+                                    <td>@item.NationalityName</td>
+                                    <td>@item.PanCardNo</td>
+                                    <td>
+                                        @{Html.RenderAction("GridButton", "User", new { @controllname = "Home", @actionname = "ListEmployee", @id = item.EmployeeId, @deleteaction = "Delete", @updateaction = "Employee" });}
+                                        @*@Html.ActionLink("Edit","Employee", "Home", new { @id = item.EmployeeId },new { })
+                    @Html.ActionLink("Delete", "Delete", "Home", new { @id = item.EmployeeId }, new { @onclick = "return confirm('Are sure wants to delete?'); " })*@
+                                    </td>
+
+                                </tr>}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@section scripts{
+
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            //$("#example1").DataTable();
+            $('#EmpList').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });</script>
+
+}
+

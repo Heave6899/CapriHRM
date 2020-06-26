@@ -1,0 +1,147 @@
+﻿@model ViewModel.HolidayListMasterModel
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "LeaveBalance";
+}
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mt-1 mb-1 justify-content-center">
+            <div class="col-md-4 offset-3">
+                <h1>Holiday</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="Successmessage" class="justify-content-center"><h5 class="justify-content-center" style="color:blue">@ViewData["Success"]</h5></div>
+<div id="errormessage" class="justify-content-center"><h5 class="justify-content-center" style="color:red">@ViewData["alreadyadd"]</h5></div>
+<br />
+
+@using (Html.BeginForm("HolidayListForUser", "Leave", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.HolydayListModel.id)
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-md-4 offset-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HolydayListModel.year, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.HolydayListModel.year, (IEnumerable<SelectListItem>)ViewBag.Year, htmlAttributes: new { @class = "form-control", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.HolydayListModel.year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label></label>
+                    <div class="col-md-10">
+                        <input type="submit" value="Find" class="btn btn-default btn-block" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-horizontal">
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Holyday List</h3>
+                            <!-- /.card-header -->
+                        </div>
+                        <div class="card-body">
+                            <table id="EmpList" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No.</th>
+                                        <th>Holyday Name</th>
+                                        <th>Description</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>No of Days</th>
+                                        <th>Year</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int No = 0; }
+                                    @foreach (var item in Model.holydayListModels)
+                                    {
+                                        <tr>
+                                            <td>@(No = No + 1)</td>
+                                            <td>@item.HolydayName</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.FromDate</td>
+                                            <td>@item.ToDate</td>
+                                            <td>@item.NoOfDays</td>
+                                            <td>@item.year</td>
+                                        </tr>}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!--Table-->
+        <!--Cancle Modal-->
+        <!-- /.content -->
+
+    </div>
+
+
+}
+
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+
+    <script type="text/javascript">
+        $('#Successmessage').delay(5000).fadeOut('slow');
+        $('#errormessage').delay(7000).fadeOut('slow');
+
+    </script>
+
+    <script>
+
+        //$("#example1").DataTable()
+        $(function () {
+            ;
+            $('#WeekendList').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });</script>
+}
+

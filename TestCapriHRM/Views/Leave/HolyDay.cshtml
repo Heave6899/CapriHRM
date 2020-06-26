@@ -1,0 +1,155 @@
+﻿@model ViewModel.HolidayListMasterModel
+@{
+    ViewBag.Title = "EmployeeLeave";
+}
+@section styles{
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Holiday</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<div class="justify-content-center"><h5 class="justify-content-center" style="color:red">@ViewData["error"]</h5></div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HolydayListModel.HolydayName, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => model.HolydayListModel.HolydayName, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.HolydayListModel.HolydayName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HolydayListModel.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => model.HolydayListModel.Description, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.HolydayListModel.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HolydayListModel.FromDate, htmlAttributes: new { @class = "control-label col-md-5" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.HolydayListModel.FromDate, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @onChange = "getNoOfLeaveBetweenDates()" } })
+                        @Html.ValidationMessageFor(model => model.HolydayListModel.FromDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HolydayListModel.ToDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.HolydayListModel.ToDate, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @onChange = "getNoOfLeaveBetweenDates()" } })
+                        @Html.ValidationMessageFor(model => model.HolydayListModel.ToDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <br />
+        <div class="row">
+            <div class="col-md-3 offset-3">
+                @{
+                    var isUpdate = Model == null ? false : true;
+                    Html.RenderAction("SubmitButton", "User", new { @controllname = "Leave", @actionname = "Holyday", @IsUpdate = isUpdate });
+                }
+            </div>
+            <div class="col-md-3">
+                <input type="button" value="Back To List" class="btn btn-default btn-block" onclick="location.href='@Url.Action("HolidayList", "Leave")'" />
+            </div>
+        </div>
+        <div class="row">
+            <br />
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script>
+        function getNoOfLeaveBetweenDates() {
+
+    var model = {
+        FromDate: $('#HolydayListModel_FromDate').val(),
+        ToDate: $('#HolydayListModel_ToDate').val(),
+        };
+    $.ajax({
+    type: "GET",
+    url: '@Url.Action("GetNoOfDays", "Leave")',
+    data: model,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    beforeSend: function () {
+    //Show(); // Show loader icon
+    },
+        success: function (response) {
+
+            if (response == "") {
+                alert("Please select valid date.");
+                $("#submit1").hide();
+
+            }
+            else if (response == -1) {
+
+                $("#HolydayListModel_NoOfDays").val(0);
+            }
+            else if (response == 1) {
+             
+                $("#submit1").show();
+                $("#HolydayListModel_NoOfDays").val(response);
+            }
+            else
+            {
+                $("#submit1").show();
+                $("#HolydayListModel_NoOfDays").val(response);
+            }
+    },
+    complete: function () {
+    // Hide(); // Hide loader icon
+    },
+    failure: function (jqXHR, textStatus, errorThrown) {
+    //alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+    }
+    });
+    }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#HolydayListModel_ToDate').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+               
+            });
+            $('#HolydayListModel_FromDate').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                
+            });
+        });
+    </script>
+}

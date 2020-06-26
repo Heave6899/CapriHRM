@@ -1,0 +1,166 @@
+﻿@model ViewModel.RolePermissionMasterModel
+@{
+    ViewBag.Title = "RolePermission";
+}
+@using Utility.Costant
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+}
+
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Role Permission</h1>
+            </div>
+        </div>
+    </div>
+</section>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.RolePermissionId)
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row justify-content-md-center">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 mw-100">
+                        @Html.DropDownListFor(model => model.RoleId, (IEnumerable<SelectListItem>)ViewBag.Role, htmlAttributes: new { @class = "form-control", @autocomplete = "off", @onchange = "GetValue()" })
+                        @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <!-- /.card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Role Permissions</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="EmpList" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No.</th>
+                                    <th>ControllerName</th>
+                                    <th>ActionName</th>
+                                    <th>PermissionName</th>
+                                    <th>Grant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @for (int i = 0; i < Model.rolePermissionModels.Count; i++)
+                                {
+
+                                    <tr>
+
+                                        <td>@(i + 1)</td>
+                                        <td>@Model.rolePermissionModels[i].ControllerName</td>
+                                        <td>@Model.rolePermissionModels[i].ActionName</td>
+                                        <td>@Model.rolePermissionModels[i].PermissionName</td>
+                                        <td>
+                                            @Html.HiddenFor(model => model.rolePermissionModels[i].ApplicationPermissionId)
+
+                                            @Html.CheckBoxFor(model => model.rolePermissionModels[i].IsPermission)
+                                        </td>
+
+                                    </tr>}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <label class="btn-block">&nbsp;</label>
+                        @if (Model.RoleId != null)
+                        {
+
+                            var isUpdate = Model.RoleId == null ? false : true;
+                            Html.RenderAction("SubmitButton", "User", new { @controllname = "Master", @actionname = "RolePermission", @IsUpdate = isUpdate });
+
+                        }
+                        @*<input type="submit" value="@(Model.RoleId ==0 ? "Add" : "Update")" class="btn btn-default btn-block" />*@
+                    </div>
+                    @if (Model.RoleId != 0 && Model.RoleId != null)
+                    {
+                        <div class="col-md-5">
+                            <label class="btn-block">&nbsp;</label>
+                            @Html.ActionLink("Clear", "RolePermission", "Master", new { @id = "0" }, new { @class = "btn btn-default btn-block" })
+                            @*<input type="submit" value="Clear" class="btn btn-default btn-block" />*@
+                            <label id="Value" style="display:none"></label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+
+    <br />
+}
+
+
+
+
+@section scripts {
+    @*<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+        <script src="~/Scripts/jquery.validate.js"></script>
+
+        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
+
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- page script -->
+    <script>
+
+        function GetValue() {
+
+            var RoleId = $('#RoleId').val();
+            var url = '/Master/EncodeId/' + RoleId + '';
+            window.location.href = url;
+        }
+
+    </script>
+    <script>
+
+        $(function () {
+            //$("#example1").DataTable();
+            $('#EmpList').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });</script>
+}
+

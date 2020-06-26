@@ -1,0 +1,146 @@
+﻿@model ViewModel.PermissionMasterModel
+@{
+    ViewBag.Title = "Permission";
+}
+@using Utility.Costant
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+}
+
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Permission</h1>
+            </div>
+        </div>
+    </div>
+</section>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.permissionModel.PermissionId)
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row justify-content-md-center">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.permissionModel.PermissionName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 mw-100">
+                        @Html.EditorFor(model => model.permissionModel.PermissionName, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.permissionModel.PermissionName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <label class="btn-block">&nbsp;</label>
+                        @{
+                            var isUpdate = Model.permissionModel == null ? false : true;
+                            Html.RenderAction("SubmitButton", "User", new { @controllname = "Master", @actionname = "Permission", @IsUpdate = isUpdate });
+                        }
+                        @*<input type="submit" value="@(Model.permissionModel==null ? "Add" : "Update")" class="btn btn-default btn-block" />*@
+                    </div>
+                    @if (Model.permissionModel != null)
+                    {
+                        <div class="col-md-5">
+                            <label class="btn-block">&nbsp;</label>
+                            @Html.ActionLink("Clear", "Permission", "Master", new { @id = 0 }, new { @class = "btn btn-default btn-block" })
+                            @*<input type="submit" value="Clear" class="btn btn-default btn-block" />*@
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <!-- /.card -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Permissions</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="EmpList" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sr.No.</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int No = 0;}
+                            @foreach (var item in Model.permissionModels)
+                            {
+                                <tr>
+                                    <td>@(No=No+1)</td>
+                                    <td>@item.PermissionName</td>
+
+                                    <td>
+                                        @{Html.RenderAction("GridButton", "User", new { @controllname = "Master", @actionname = "Permission", @id = item.PermissionId, @deleteaction = "DeletePermission", @updateaction = "Permission" });}
+                                        @*<a href="@Url.Action("Permission","Master",new { @id=item.PermissionId})">Edit</a>
+                    @Html.ActionLink("Delete", "DeletePermission", "Master", new { @id = item.PermissionId }, new { @onclick = "return confirm('Are sure wants to delete?'); " })*@
+                                    </td>
+
+                                </tr>}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <script src="~/Scripts/jquery.validate.js"></script>
+
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- page script -->
+    @*<script type="text/javascript">
+        function ConfirmationDialog() {
+            if (confirm("Are you sure to continue?"))
+                return true;
+            else
+                return false;
+        }
+        </script>*@
+    <script>
+
+        $(function () {
+            //$("#example1").DataTable();
+            $('#EmpList').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });</script>
+}

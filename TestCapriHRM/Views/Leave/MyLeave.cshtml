@@ -1,0 +1,397 @@
+﻿@model ViewModel.EmployeeLeaveMasterModel
+@{
+    ViewBag.Title = "List";
+}
+@using Utility.Costant
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+}
+
+@foreach (var item in Model.employeeLeaveModels)
+{
+    if (item.ApprovalStatus == "")
+    {
+        item.ApprovalStatus = "Not Approval Now";
+    }
+    else if (item.ApprovalStatus == "True")
+    {
+        item.ApprovalStatus = "Approved";
+    }
+    else if (item.ApprovalStatus == "False")
+    {
+        item.ApprovalStatus = "Leave Not Approve by Admin";
+    }
+
+}
+@foreach (var item in Model.employeeUnapproveCancleLeaveModels)
+{
+    if (item.ApprovalStatus == "")
+    {
+        item.ApprovalStatus = "Not Approval Now";
+    }
+    else if (item.ApprovalStatus == "True")
+    {
+        item.ApprovalStatus = "Approved";
+    }
+    else if (item.ApprovalStatus == "False")
+    {
+        item.ApprovalStatus = "Leave Not Approve by Admin";
+    }
+
+}
+<!-- Content Header (Page header) -->
+<div class="justify-content-center"><h5 class="justify-content-center" style="color:red">@ViewData["error"]</h5></div>
+<div class="justify-content-center"><h5 class="justify-content-center" style="color:red">@ViewData["NotValidDate"]</h5></div>
+<br />
+@using (Html.BeginForm("MyLeave", "Leave", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Leaves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                            @*@Html.DropDownListFor(model => model.Year, (IEnumerable<SelectListItem>)ViewBag.Year, htmlAttributes: new { @class = "", @onChange = "GetYearLeave()" })*@
+                            <div class="row"><div class="col-md-6 offset-6"><input type="button" value="Add" class="btn btn-default btn-block" onclick="location.href='@Url.Action("EmployeeLeave", "Leave")'" /></div></div>
+                            <!-- /.card-header -->
+                        </div>
+                        <div class="card-body">
+                            <table id="EmpLeaveList" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No.</th>
+                                        <th>Leave Type</th>
+                                        <th>Current Leave Balance</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>No of Leaves</th>
+                                        <th>Comment</th>
+                                        <th>Approval Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int NoLeave = 0;}
+                                    @foreach (var item in Model.employeeLeaveModels)
+                                    {
+                                        <tr>
+                                            <td>@(NoLeave = NoLeave + 1)</td>
+                                            <td>@item.LeaveTypeName</td>
+                                            <td>@item.LeaveBalance</td>
+                                            <td>@item.FromDate</td>
+                                            <td>@item.ToDate</td>
+                                            <td>@item.NoOfLeave</td>
+                                            <td>@item.Comment</td>
+                                            <td>@item.ApprovalStatus</td>
+                                            @if (item.ApprovalStatus == "Not Approval Now")
+                                            {
+
+                                                <td>@Html.ActionLink("Delete", "DeleteLeaveApproval", "Leave", new { @id = Constant.Encode(item.id.ToString()) }, new { })</td>
+                                            }
+                                            else if (item.ApprovalStatus == "Leave Not Approve by Admin")
+                                            {
+                                                <td>@Html.ActionLink("Delete", "DeleteLeaveApproval", "Leave", new { @id = Constant.Encode(item.id.ToString()) }, new { })</td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#ModalProfileImage" data-fromdate="@item.FromDate" data-todate="@item.ToDate" data-noofleave="@item.NoOfLeave" data-leaveid="@item.id">Cancle</a>
+                                                </td>
+                                            }
+                                        </tr>}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <br />
+        <br />
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <!-- /.card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Cancle Leaves&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                            <!-- /.card-header -->
+                        </div>
+                        <div class="card-body">
+                            <table id="EmpCancleLeaveList" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No.</th>
+                                        <th>Leave Type</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>No of Leaves</th>
+                                        <th>Comment</th>
+                                        <th>Approval Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int NoCancleLeave = 0;}
+                                    @foreach (var item in Model.employeeUnapproveCancleLeaveModels)
+                                    {
+                                        <tr>
+                                            <td>@(NoCancleLeave=NoCancleLeave+1)</td>
+                                            <td>@item.LeaveTypeName</td>
+                                            <td>@item.FromDate</td>
+                                            <td>@item.ToDate</td>
+                                            <td>@item.NoOfLeave</td>
+                                            <td>@item.Comment</td>
+                                            <td>@item.ApprovalStatus</td>
+                                            @if (item.ApprovalStatus == "Not Approval Now")
+                                            {
+                                                <td>@Html.ActionLink("Delete", "DeleteCancleLeaveApproval", "Leave", new { @id = Constant.Encode(item.id.ToString()) }, new { })</td>
+                                            }
+                                            else if (item.ApprovalStatus == "Leave Not Approve by Admin")
+                                            {
+                                                <td class="justify-content-center"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;@Html.Label("---")</td>
+                                            }
+                                            else
+                                            {
+                                                if (item.ApprovalStatus == "Approved")
+                                                {
+                                                    <td class="justify-content-center"> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;@Html.Label("---")</td>
+                                                }
+                                            }
+                                        </tr>}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!--Table-->
+        <!--Cancle Modal-->
+        <div class="modal fade" id="ModalProfileImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Cancle Leave</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.HiddenFor(c => c.LeaveTypeId)
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-5" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @onChange = "getNoOfLeave()" } })
+                                            @*@Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @onChange = "getNoOfLeave()" } })
+                                            @*@Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.NoOfLeave, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.NoOfLeave, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        @Html.ValidationMessageFor(model => model.NoOfLeave, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="Halfday" style="display:none">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Select HalfDay", htmlAttributes: new { @class = "control-label col-md-4" }) &nbsp;
+                                        <div class="col-md-10">
+                                            @Html.CheckBoxFor(model => model.HalfDay, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } }) &nbsp; @Html.Label("HalfDay", new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="shift" style="display:none">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Shift, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-10">
+                                            @Html.RadioButton("rbg", "1", isChecked: true) &nbsp; @Html.Label("Morning")
+                                            @Html.RadioButton("rbg", "2", isChecked: false) &nbsp; @Html.Label("Evening")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <div class="col-md-3 offset-4">
+                                    <input type="submit" id="CancleLeave" value="CancleLeave" class="btn btn-default btn-block" />
+                                </div>
+
+                            </div>
+
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.content -->
+
+    </div>
+}
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#ToDate').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                beforeShowDay: $.datepicker.noWeekends
+            });
+            $('#FromDate').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                beforeShowDay: $.datepicker.noWeekends
+            });
+        });
+    </script>
+    <!-- page script -->
+    <script>
+        $('#ModalProfileImage').on('show.bs.modal', function (e) {
+            var FromDate = e.relatedTarget.dataset.fromdate;
+            var ToDate = e.relatedTarget.dataset.todate;
+            var NoOfLeave = e.relatedTarget.dataset.noofleave;
+            var LeaveId = e.relatedTarget.dataset.leaveid;
+            $('#FromDate').val(FromDate);
+            $('#ToDate').val(ToDate);
+            $('#LeaveTypeId').val(LeaveId);
+            $('#NoOfLeave').val(NoOfLeave);
+            // Do some stuff w/ it.
+            getNoOfLeave();
+        });
+    </script>
+    <script>
+        function getNoOfLeave() {
+
+    var model = {
+        FromDate: $('#FromDate').val(),
+        ToDate: $('#ToDate').val(),
+                };
+
+    $.ajax({
+    type: "GET",
+    url: '@Url.Action("GetEmployeeNoOfLeave", "Leave")',
+    data: model,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    beforeSend: function () {
+    //Show(); // Show loader icon
+    },
+        success: function (response) {
+
+            if (response ==0) {
+                alert("Please select valid date.");
+                $("#CancleLeave").hide();
+
+            }
+            else if (response == -1) {
+
+                $("#NoOfLeave").val(0);
+            }
+            else if (response == 1) {
+                $("#Halfday").show();
+                $("#submit1").show();
+                $("#NoOfLeave").val(response);
+            }
+             else {
+                $("#CancleLeave").show();
+                $("#Halfday").hide();
+                $("#NoOfLeave").val(response);
+            }
+
+    },
+    complete: function () {
+    // Hide(); // Hide loader icon
+    },
+    failure: function (jqXHR, textStatus, errorThrown) {
+    //alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+    }
+    });
+    }
+    </script>
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $("#HalfDay").click(function () {
+                    $("#shift").show();
+                });
+            });
+        </script>*@
+    <script type="text/javascript">
+        $(function () {
+            $("#HalfDay").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#shift").show();
+                } else {
+                    $("#shift").hide();
+                }
+            });
+        });
+    </script>
+    <script>
+
+        $(function () {
+
+            $('#EmpLeaveList').DataTable({
+                "paging": true,
+                "pageLength": 5,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+            $('#EmpCancleLeaveList').DataTable({
+                "paging": true,
+                "pageLength": 5,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });</script>
+
+}
+

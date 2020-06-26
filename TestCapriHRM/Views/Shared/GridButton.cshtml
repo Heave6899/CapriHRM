@@ -1,0 +1,38 @@
+﻿@model List<ViewModel.PagePermissionModel>
+@using Utility.Costant
+@{
+
+    var Reset = Model.Where(c => c.PermissionName == "Reset").FirstOrDefault();
+    var Delete = Model.Where(c => c.PermissionName == "Delete").FirstOrDefault();
+    var Edit = Model.Where(c => c.PermissionName == "Update").FirstOrDefault();
+    int id = Model.Select(c => c.Id).FirstOrDefault();
+    string encode = Constant.Encode(id.ToString());
+    
+
+
+}
+
+@if (Reset != null)
+{
+    @Html.ActionLink("ResetPassword", "ResetPasswordOfUser", "User", new { @id = encode }, new { @onclick = "return confirm('Are sure wants to Reset Password?'); " })
+
+}
+
+@if (Delete != null)
+{
+    if (Reset != null)
+    {
+        <span>&nbsp;|&nbsp;</span>
+    }
+    @Html.ActionLink("Delete",Delete.ActionName,Delete.ControllerName, new { @id = encode }, new { @onclick = "return confirm('Are sure wants to delete?'); " })
+}
+
+@if (Edit != null)
+{
+    if (Delete != null)
+    {
+        <span>&nbsp;|&nbsp;</span>
+    }
+    @Html.ActionLink("Edit", Edit.ActionName, Edit.ControllerName, new { @id = encode },null)
+}
+

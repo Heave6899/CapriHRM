@@ -1,0 +1,25 @@
+﻿@model ViewModel.UserModel
+@{
+    Layout = null;
+}
+<title>Login</title>
+<div id="login-tab-content" class="active">
+    @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @*@Html.HiddenFor(m => m.returnUrl, new { @value = ViewBag.ReturnUrl })*@
+
+        @Html.TextBoxFor(m => m.UserName, new { @class = "input", autocomplete = "off", placeholder = "Email or Username" })
+        @Html.ValidationMessageFor(m => m.UserName)
+        @Html.PasswordFor(m => m.Password, new { @class = "input", autocomplete = "off", placeholder = "Password" })
+        @Html.ValidationMessageFor(m => m.Password)
+        <input type="checkbox" class="checkbox" checked id="IsRemember">
+        <label for="IsRemember">Remember me</label>
+
+        <input type="submit" class="button" value="Login">
+    }
+    @*<div class="help-action">
+        <p><i class="fa fa-arrow-left" aria-hidden="true"></i><a class="forgot" href="#">Forgot your password?</a></p>
+    </div>*@
+</div>
+

@@ -1,0 +1,266 @@
+﻿@model ViewModel.EmployeeLeaveModel
+@{
+    ViewBag.Title = "EmployeeLeave";
+}
+@section styles{
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Leave Apply</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<div class="justify-content-center"><h5 class="justify-content-center" style="color:red">@ViewData["error"]</h5></div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LeaveTypeId, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.LeaveTypeId, (IEnumerable<SelectListItem>)ViewBag.LeaveTypeId, htmlAttributes: new { @class = "form-control", @onChange = "getLeaveBalance()" })
+                        @Html.ValidationMessageFor(model => model.LeaveTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LeaveBalance, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+
+                        @Html.EditorFor(model => model.LeaveBalance, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.LeaveBalance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-5" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @onChange = "getNoOfLeaveBetweenDates()" } })
+                        @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @onChange = "getNoOfLeaveBetweenDates()" } })
+                        @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="Halfday" style="display:none">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.Label("Select HalfDay", htmlAttributes: new { @class = "control-label col-md-4" }) &nbsp;
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.HalfDay, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } }) &nbsp; @Html.Label("HalfDay", new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" id="shift" style="display:none">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Shift, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @*@foreach (var item in (IEnumerable<SelectListItem>)ViewBag.Shift)
+                            {
+                                @Html.RadioButtonFor(model => model.Shift, item.Value, new { htmlAttributes = new { @class = "form-control" } })
+                                @:&nbsp;
+                                @Html.Label(item.Text)
+                                @:&nbsp;&nbsp;
+                            }*@
+                        @Html.RadioButton("rbg", "1", isChecked: true) &nbsp; @Html.Label("Morning")
+                        @Html.RadioButton("rbg", "2", isChecked: false) &nbsp; @Html.Label("Evening")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NoOfLeave, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NoOfLeave, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.NoOfLeave, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3 offset-3">
+                @{
+                    var isUpdate = Model == null ? false : true;
+                    Html.RenderAction("SubmitButton", "User", new { @controllname = "Leave", @actionname = "EmployeeLeave", @IsUpdate = isUpdate });
+                }
+            </div>
+            <div class="col-md-3">
+                <input type="button" value="Back To List" class="btn btn-default btn-block" onclick="location.href='@Url.Action("MyLeave", "Leave")'" />
+            </div>
+        </div>
+        <div class="row">
+            <br />
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script>
+        function getLeaveBalance() {
+    var model = {
+        id: $('#LeaveTypeId').val(),
+    };
+    $.ajax({
+    type: "GET",
+    url: '@Url.Action("GetLeaveBalance", "Leave")',
+    data: model,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    beforeSend: function () {
+    //Show(); // Show loader icon
+        },
+
+        success: function (response) {
+
+            if (response == 0) {
+                alert("Leave are not available");
+                $("#submit1").hide();
+
+            }
+            if (response == "As Your Choice") {
+               response = "0";
+            }
+
+            $("#LeaveBalance").val(response);
+    },
+    complete: function () {
+    // Hide(); // Hide loader icon
+    },
+    failure: function (jqXHR, textStatus, errorThrown) {
+    //alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+    }
+    });
+        }
+
+    </script>
+    <script>
+        function getNoOfLeaveBetweenDates() {
+
+    var model = {
+        FromDate: $('#FromDate').val(),
+        ToDate: $('#ToDate').val(),
+        LeaveBalanceid: $('#LeaveBalance').val(),
+        LeavrtypeId: $('#LeaveTypeId').val(),
+    };
+    $.ajax({
+    type: "GET",
+    url: '@Url.Action("GetNoOfLeave", "Leave")',
+    data: model,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    beforeSend: function () {
+    //Show(); // Show loader icon
+    },
+        success: function (response) {
+            
+            if (response == "") {
+                alert("Please select valid date.");
+                $("#submit1").hide();
+
+            }
+            else if (response == "Unpaid leave") {
+
+            }
+            else if (response == 0) {
+                alert("Leaves are not availabe");
+                $("#submit1").hide();
+            }
+            else if (response == -1) {
+
+                $("#NoOfLeave").val(0);
+            }
+            else if (response == 1) {
+                $("#Halfday").show();
+                $("#submit1").show();
+                 $("#NoOfLeave").val(response);
+            }
+            else
+            {
+                $("#submit1").show();
+                $("#Halfday").hide();
+                $("#NoOfLeave").val(response);
+            }
+    },
+    complete: function () {
+    // Hide(); // Hide loader icon
+    },
+    failure: function (jqXHR, textStatus, errorThrown) {
+    //alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+    }
+    });
+    }
+    </script>
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $("#HalfDay").click(function () {
+                    $("#shift").show();
+                });
+            });
+        </script>*@
+    <script type="text/javascript">
+        $(function () {
+            $("#HalfDay").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#shift").show();
+                } else {
+                    $("#shift").hide();
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#ToDate').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                beforeShowDay: $.datepicker.noWeekends
+            });
+            $('#FromDate').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                beforeShowDay: $.datepicker.noWeekends
+            });
+        });
+    </script>
+}

@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Dashbord";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <style>
+        fieldset.scheduler-border {
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow: 0px 0px 0px 0px #000;
+            box-shadow: 0px 0px 0px 0px #000;
+        }
+
+        legend.scheduler-border {
+            width: inherit; /* Or auto */
+            padding: 0 10px; /* To give a bit of padding on the left and right */
+            border-bottom: none;
+        }
+
+        .img-Coustomfluid {
+           max-width: 70%;
+            height: auto;
+        }
+    </style>
+}
+
+<br />
+<br />
+<br />
+
+
+<div class="form-horizontal">
+    <section class="content">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <!-- /.card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Dashbord</h3>
+                        <!-- /.card-header -->
+                    </div>
+                    <div class="card-body">
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Quick Access</legend>
+                            <div class="control-group">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <a href="@Url.Action("UserProfile","User")">
+                                            <img class="img-Coustomfluid img-bordered-sm"
+                                                 src="~/dist/img/user1-128x128.jpg"
+                                                 alt="User profile picture">
+                                        </a><br />
+                                        &nbsp; <a href="@Url.Action("UserProfile","User")">My Profile</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="@Url.Action("EmployeeLeave","Leave")">
+                                            <img class="img-Coustomfluid img-bordered-sm"
+                                                 src="~/dist/img/LeaveRequest.png"
+                                                 alt="User profile picture">
+                                        </a><br />
+                                            <a href="@Url.Action("EmployeeLeave","Leave")"> Apply&nbsp;&nbsp;Leave</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="@Url.Action("MyLeave","Leave")">
+                                            <img class="img-Coustomfluid img-bordered-sm"
+                                                 src="~/dist/img/Leaveapply.jpg"
+                                                 alt="User profile picture">
+                                        </a><br />
+                                        &nbsp;<a href="@Url.Action("MyLeave","Leave")">&nbsp; My Leave</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="@Url.Action("HolidayListForUser","Leave")">
+                                            <img class="img-Coustomfluid img-bordered-sm"
+                                                 src="~/dist/img/holiday.png"
+                                                 alt="User profile picture">
+                                        </a><br />
+                                            <a href="@Url.Action("HolidayListForUser","Leave")">&nbsp;Holiday List</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="@Url.Action("Employee","Home")">
+                                            <img class="img-Coustomfluid img-bordered-sm"
+                                                 src="~/dist/img/employee.jpg"
+                                                 alt="User profile picture">
+                                        </a><br />
+                                            <a href="@Url.Action("Employee","Home")">&nbsp;&nbsp;&nbsp;Employee</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!--Table-->
+    <!--Cancle Modal-->
+    <!-- /.content -->
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <link rel="stylesheet" href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!-- DataTables -->
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+
+
+    <!-- page script -->
+
+}
+
